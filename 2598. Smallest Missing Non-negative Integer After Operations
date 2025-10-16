@@ -1,0 +1,24 @@
+class Solution {
+    public int findSmallestInteger(int[] nums, int value) {
+        Map<Integer,Integer>mp=new HashMap<>();
+        //storing the frequency
+        for(int num:nums){
+            num%=value;
+            if(num<0)
+                num+=value;
+            mp.put(num, mp.getOrDefault(num, 0) + 1);         
+        }
+       
+        //will now see the smallest mex that's not possible to form
+
+        for(int mex=0;mex<Integer.MAX_VALUE;mex++){
+            int rem=mex%value;
+            if(!mp.containsKey(rem)||mp.get(rem)==0)
+                return mex;
+
+            mp.put(rem,mp.get(rem)-1);
+        }
+
+        return -1;
+    }
+}
