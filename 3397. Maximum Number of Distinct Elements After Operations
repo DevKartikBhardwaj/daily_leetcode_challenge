@@ -1,0 +1,28 @@
+class Solution {
+    public int maxDistinctElements(int[] nums, int k) {
+        Arrays.sort(nums);
+        
+        Set<Integer>st=new HashSet<>();
+        int change=-1*k,prev=-1;
+        for(int i=0;i<nums.length;i++){
+            if(i>0&&prev!=nums[i]){
+                //find change for the new sequence
+                //number is supposed to be nums[i-1]+1
+                change=nums[i-1]+1-nums[i];
+                if(change<-1*k)change=-1*k;
+            }
+            prev=nums[i];
+            nums[i]+=change;
+            if(change<k)change++;
+            // System.out.print(change+" ");
+        }
+
+        
+
+        for(int num:nums){
+            st.add(num);
+        }
+
+        return st.size();
+    }
+}
